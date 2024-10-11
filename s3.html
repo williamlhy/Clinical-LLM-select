@@ -1818,22 +1818,33 @@
             ;
 
             let currentNode = "0"; // Starting node
-            let questionCount = 1; // Question counter
+            let questionHistory = []; // Keeps track of answered questions
 
-            function displayQuestion(node) {
+            // Function to display a question based on the node
+            function displayQuestion(node, questionIndex) {
+                const questionContainer = document.getElementById('questionContainer');
+                // Clear questions beyond this index
+                questionContainer.innerHTML = '';
+
+                // Display history
+                questionHistory.slice(0, questionIndex).forEach(q => appendQuestion(q.node, q.choice, q.number));
+
+                // Display the current question
+                appendQuestion(node, null, questionIndex + 1);
+            }
+
+            function appendQuestion(node, selectedChoice, questionNumber) {
                 const questionContainer = document.getElementById('questionContainer');
 
                 if (data[node] && data[node].question) {
-                    // Create a div for each question and its options
                     const questionDiv = document.createElement('div');
                     questionDiv.classList.add('question');
 
-                    // Add question number
-                    const questionNumber = document.createElement('p');
-                    questionNumber.classList.add('questionNumber');
-                    questionNumber.innerText = `Question ${questionCount}:`;
-                    questionDiv.appendChild(questionNumber);
-                    questionCount++; // Increment question counter
+                    // Display fixed question number
+                    const questionNumberElem = document.createElement('p');
+                    questionNumberElem.classList.add('questionNumber');
+                    questionNumberElem.innerText = `Question ${questionNumber}:`;
+                    questionDiv.appendChild(questionNumberElem);
 
                     // Display question text
                     const questionText = document.createElement('p');
@@ -1843,22 +1854,22 @@
                     // Create Yes button
                     const yesButton = document.createElement('button');
                     yesButton.innerText = 'Yes';
+                    yesButton.classList.toggle('selected', selectedChoice === 'yes');
                     yesButton.onclick = function () {
-                        yesButton.classList.add('selected'); // Mark Yes as selected
-                        noButton.classList.remove('selected'); // Remove selection from No
+                        updateHistory(node, 'yes', questionNumber);
                         currentNode = data[node].yes;
-                        displayQuestion(currentNode);
+                        displayQuestion(currentNode, questionNumber);
                     };
                     questionDiv.appendChild(yesButton);
 
                     // Create No button
                     const noButton = document.createElement('button');
                     noButton.innerText = 'No';
+                    noButton.classList.toggle('selected', selectedChoice === 'no');
                     noButton.onclick = function () {
-                        noButton.classList.add('selected'); // Mark No as selected
-                        yesButton.classList.remove('selected'); // Remove selection from Yes
+                        updateHistory(node, 'no', questionNumber);
                         currentNode = data[node].no;
-                        displayQuestion(currentNode);
+                        displayQuestion(currentNode, questionNumber);
                     };
                     questionDiv.appendChild(noButton);
 
@@ -1877,14 +1888,26 @@
                     // Append the answer to the container
                     questionContainer.appendChild(answerDiv);
                 } else {
-                    const fallback = document.createElement('p');
-                    fallback.innerText = "No more questions or answers.";
-                    questionContainer.appendChild(fallback);
+                    // Handle if no more questions or no data found
+                    const noMoreQuestions = document.createElement('p');
+                    noMoreQuestions.innerText = "No more questions or answers.";
+                    questionContainer.appendChild(noMoreQuestions);
                 }
             }
 
+            function updateHistory(node, choice, questionNumber) {
+                // Check if we are revisiting a question and modify history accordingly
+                const historyIndex = questionHistory.findIndex(q => q.number === questionNumber);
+                if (historyIndex !== -1) {
+                    questionHistory = questionHistory.slice(0, historyIndex); // Remove subsequent questions
+                }
+
+                // Add current question to history
+                questionHistory.push({ node, choice, number: questionNumber });
+            }
+
             // Start the first question
-            displayQuestion(currentNode);
+            displayQuestion(currentNode, 0);
         });
     </script>
 </body>
