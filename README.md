@@ -1,5 +1,7 @@
 # Large language models in healthcare
-<p style="color: grey; font-size: 12px;"> H. Li and A. Python Center for Data Science, Zhejiang University | copyright 2024 </p>
+<p style="color: grey; font-size: 12px;">H. Li and A. Python</p>
+Center for Data Science, Zhejiang University | copyright 2024
+
 
 Welcome to the Clinical LLM Selection Tool! 
 
