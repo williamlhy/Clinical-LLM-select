@@ -1,3 +1,6 @@
+# Large language models in healthcare
+<p style="color: grey; font-size: 12px;"> H. Li and A. Python Center for Data Science, Zhejiang University | copyright 2024 </p>
+
 Welcome to the Clinical LLM Selection Tool! 
 
 This tool aims at providing evidence-based guidance for medical practitioners in the identification of large language models (LLMs) that best suit their specific needs. 
