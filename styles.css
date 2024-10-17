@@ -1,0 +1,142 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Two-column Layout */
+.container {
+    display: flex;
+    height: 100vh; /* Full viewport height */
+}
+
+/* Sidebar (Left column) */
+.sidebar {
+    width: 25%; /* Narrow left sidebar */
+    background-color: #333;
+    color: white;
+    padding: 20px;
+}
+
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar nav ul li {
+    margin: 20px 0;
+}
+
+.sidebar nav ul li a {
+    color: #fff;
+    display: block;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid transparent;
+}
+
+.sidebar nav ul li a:hover {
+    border: 1px solid white;
+}
+
+/* Main Content (Right column) */
+.main-content {
+    width: 75%; /* Wide right content */
+    padding: 20px;
+    overflow-y: auto; /* Allow scrolling */
+}
+
+.header-content {
+    text-align: center;
+    margin-top: 50px;
+}
+
+header .header-content h1 {
+    font-size: 2.5em;
+}
+
+.about-container {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.profile-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.about-text {
+    max-width: 600px;
+}
+
+.project-list {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.project {
+    width: 45%;
+    background-color: #f9f9f9;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+form input,
+form textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+}
+
+form button {
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+/* Style for the project description */
+.projectDescription {
+    font-size: 18px;
+    margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+}
+
+/* Style for the buttons */
+.buttonContainer {
+    margin-top: 20px;
+}
+
+.buttonContainer button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 10px;
+    cursor: pointer;
+}
