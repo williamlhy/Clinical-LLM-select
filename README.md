@@ -6,7 +6,7 @@ Center for Data Science, Zhejiang University | copyright 2024
 Welcome to the Clinical LLM Selection Tool! 
 
 This tool aims at providing evidence-based guidance for medical practitioners in the identification of large language models (LLMs) that best suit their specific needs. 
-The Clinical LLM Selection Tool algorithm uses information based on a review of 171 peer-reviewed papers that used or developed LLMs in healthcare (manuscript in progress).
+The Clinical LLM Selection Tool algorithm uses information based on a review of 275 peer-reviewed papers that used or developed LLMs in healthcare (manuscript in progress).
 
 To use the tool, users need to answer a series of questions that should lead to the identification of a suitable solution. 
 <p align="center">
