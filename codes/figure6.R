@@ -21,12 +21,12 @@ f2$model <- nam$model
 #combine the same model name and also the same subtask but different input-output
 f2$best <- as.numeric(f2$best)
 f2 <- cbind(f2,data$access)
-colnames(f2)[10] <- "access"
+colnames(f2)[10] <- "Access"
 #We only count the number of subtasks where the model can be applied for
 f2$best[which(f2$best!=0)] <- 1
 tt <- f2[,c(1,5:10)]
 tt <- tt[!duplicated(tt[,c("model","subtask","input1","input2","output")]),]
-f4 <- aggregate(best~model+input1+input2+output+access,data=tt,sum)
+f4 <- aggregate(best~model+input1+input2+output+Access,data=tt,sum)
 f4[f4==0] <- NA
 f4 <- na.omit(f4)
 f4$io <- NA
@@ -40,13 +40,13 @@ cols <- tibble::enframe(cols, name = "io", value = "io_abb")
 f4 <- left_join(f4, cols, by = "io")
 f4$ln_best <- log(f4$best+1)
 ff <- f4[,c(1,5,8:9)]
-ff <- ff %>% arrange(access, ln_best)
+ff <- ff %>% arrange(Access, ln_best)
 plot_io <- function(tt){
   empty_bar <- 3
   to_add <- data.frame( matrix(NA, empty_bar*nlevels(as.factor(ff$io_abb)), ncol(ff)) )
   colnames(to_add) <- colnames(ff)
   to_add$io_abb <- rep(levels(as.factor(ff$io_abb)), each=empty_bar)
-  to_add$access <- rep(levels(as.factor(ff$access)), each=13)
+  to_add$Access <- rep(levels(as.factor(ff$Access)), each=13)
   ff <- rbind(ff, to_add)
   ff <- ff %>% arrange(io_abb)
   ff$id <- seq(1, nrow(ff))
@@ -68,9 +68,9 @@ plot_io <- function(tt){
   grid_data$end <- grid_data$end[ c( nrow(grid_data), 1:nrow(grid_data)-1)] + 1
   grid_data$start <- grid_data$start - 1
   grid_data <- grid_data[-1,]
-  alpha_vector <- c("open"=1,"api"=0.7,"restricted"=0.4)
+  alpha_vector <- c("Open"=1,"api"=0.7,"Restricted"=0.4)
   #ln_best is in 1:4 io_abb:1,2
-  p1 <- ggplot(ff, aes(x=as.factor(id), y=ln_best,pattern=access)) +       #, fill=io_abb Note that id is a factor. If x is numeric, there is some space between the first bar
+  p1 <- ggplot(ff, aes(x=as.factor(id), y=ln_best,pattern=Access)) +       #, fill=io_abb Note that id is a factor. If x is numeric, there is some space between the first bar
     
     geom_bar_pattern(aes(x=as.factor(id),y=ln_best,fill=io_abb), stat="identity", pattern_fill = "black", colour = "black", pattern_spacing = 0.0075,
                      pattern_frequency = 5, pattern_angle = 45)+ #,fill="white"
@@ -80,8 +80,8 @@ plot_io <- function(tt){
                                 "E. image (2D) | - | text", "F. image (3D)+text | - | image (3D)","G. image (3D) | text | text","H. image (3D) | - | image (3D)",
                                 "I. text | time-series | text","J. audio | text | audio","K. audio+text | - | text",
                                 "L. ECG+text | - | text", "M. video+text | - | text"))+ 
-    #scale_alpha_manual(values = alpha_vector ,breaks=c("open","api","restricted")) +
-    scale_pattern_manual(values = c("open" = "none", "api" = "stripe", "restricted" = "circle"))+
+    #scale_alpha_manual(values = alpha_vector ,breaks=c("Open","api","Restricted")) +
+    scale_pattern_manual(values = c("Open" = "none", "API" = "stripe", "Restricted" = "circle"))+
     # Add a val=8/6/4/2 lines. I do it at the beginning to make sur barplots are OVER it.
     geom_segment(data=grid_data, aes(x = end, y = 4, xend = start, yend = 4), colour = "gray60", alpha=1, linewidth=0.3 , inherit.aes = FALSE ) +
     geom_segment(data=grid_data, aes(x = end, y = 3, xend = start, yend = 3), colour = "gray60", alpha=1, linewidth=0.3 , inherit.aes = FALSE ) +
@@ -116,10 +116,10 @@ p9 <- ggplot(ff, aes(x=as.factor(id), y=ln_best)) +       #, fill=io_abb Note th
   
   geom_bar(aes(x=as.factor(id),y=ln_best,fill=io_abb), stat="identity") +
   #specific colors
-  scale_fill_manual(values = c("black","black","black","black","black","black","black","black","black","black","black","black","black"),name="Input - output combination\nfirst input | second input | output"
+  scale_fill_manual(values = c("black","black","black","black","black","black","black","black","black","black","black","black","black"),name="Input-output combination\nFirst input | second input | output"
                     ,labels=c("A. text | - | text", "B. image (2D) | text | text","C. image (2D)+text | - | text","D. image (2D) | - | image (2D)",
                               "E. image (2D) | - | text", "F. image (3D)+text | - | image (3D)","G. image (3D) | text | text","H. image (3D) | - | image (3D)",
-                              "I. text | time-series | text","J. audio | text | audio","K. audio+text | - | text",
+                              "I. text | time series | text","J. audio | text | audio","K. audio+text | - | text",
                               "L. ECG+text | - | text", "M. video+text | - | text"))+
   theme(legend.key.size = unit(0.6, 'cm'), #change legend key size
         legend.key.height = unit(0.6, 'cm'), #change legend key height
@@ -127,12 +127,12 @@ p9 <- ggplot(ff, aes(x=as.factor(id), y=ln_best)) +       #, fill=io_abb Note th
         legend.title = element_text(size=12), #change legend title font size
         legend.text = element_text(size=8))
 p9
-p10 <- ggplot(ff, aes(x=as.factor(id), y=ln_best,pattern=access)) +       #, fill=io_abb Note that id is a factor. If x is numeric, there is some space between the first bar
+p10 <- ggplot(ff, aes(x=as.factor(id), y=ln_best,pattern=Access)) +       #, fill=io_abb Note that id is a factor. If x is numeric, there is some space between the first bar
   
   geom_bar_pattern(aes(x=as.factor(id),y=ln_best), stat="identity", pattern_fill = "black",
                    fill = "white", colour = "black", pattern_spacing = 0.02,
                    pattern_frequency = 5, pattern_angle = 45) +
-  scale_pattern_manual(values = c("open" = "none", "api" = "stripe", "restricted" = "circle"))
+  scale_pattern_manual(values = c("Open" = "none", "API" = "stripe", "Restricted" = "circle"))
 
 leg <-  ggpubr::get_legend(p9)
 legend <- as_ggplot(leg)
@@ -147,5 +147,5 @@ plots <- cowplot::ggdraw() +
 mycolumn <- 2
 myh <- mycolumn+4.5
 myw <- mycolumn*5
-ggsave(plot=plots, file="plots/figure6.pdf", width = myw, height = myh)
-ggsave(plot=plots, file="plots/figure6.png", width = myw, height = myh, bg = "white")
+ggsave(plot=plots, file="plots3/fig3_io2.pdf", width = myw, height = myh)
+ggsave(plot=plots, file="plots3/fig3_io2.png", width = myw, height = myh, bg = "white")

@@ -556,7 +556,7 @@ plot7 <- function(tt){
     annotate("text", x = rep(max(s7$id),2), y = c(1, 2), label = c("1", "2") , color="gray60", size=3 , angle=0, fontface="bold", hjust=1) +
     
     #geom_bar(aes(x=as.factor(id), y=appear, fill=stage, alpha=subtask), stat="identity") +
-    ylim(-2,3) +
+    ylim(-2,4) +
     theme_minimal() +
     theme(
       legend.key.size = unit(0.15, "cm"),
@@ -655,16 +655,16 @@ f4$id <- seq(1, nrow(f4))
 p9 <- ggplot(f4, aes(x=as.factor(id), y=appear, fill=subtask_abb)) + 
   geom_bar(aes(x=as.factor(id),y=appear, fill=subtask_abb), stat="identity") +
   scale_fill_manual(name="Subtasks of LLMs in clinical settings",values =alpha_vector,breaks = na.omit(c(unique(f4$subtask_abb))),
-                    labels=c("Outpatient registration recommending","Clinical histories generation","Clinical triage classification","ECG report generation","Image caption","Image classfication",
+                    labels=c("Outpatient registration recommendation","Clinical history generation","Clinical triage classification","ECG report generation","Image caption","Image classification",
                              "Image segmentation","Imaging protocol generation","Open question answering",
                              "Report error check","Report extraction","Report generation","Report reprocessing","Report simplification",
                              "Report standardization","Report summarization","Text classification",
-                             "Clinical decision support improving suggestions","Clinical letters generation","Diagnosis conclusion generation","Disease classification",
-                             "Disease feature extraction","Disease phenotypes extraction","Image segmentation","Medical question summarization","Multi-choice question answering","Open question answering","Respiratory health prediction",
-                             "Treatment plan recommendations","Visual question answering","Clinical letters generation","Clinical named entity recognition","Dialogue summarization","Disease feature recognition","Handoff notes generation","ICD codes assignment",
-                             "Informed consent document generation","Multi-choice question answering","Open question answering","Postoperative complications extraction","Risk prediction","Surgical consent forms simplification","Survival Prediction","Video question anwsering",
-                             "Visual question answering","Voice conversations","Diagnosis-related Group prediction","Discharge letters generation","Discharge summaries generation","Discharge summaries simplification","Disease feature recognition",
-                             "Disease phenotypes recognition","Disease recurrence prediction","Open question answering","Social determinants of health extraction","Text de-Identification")) +
+                             "Clinical decision support improving suggestions","Clinical letter generation","Diagnosis conclusion generation","Disease classification",
+                             "Disease feature extraction","Disease phenotype extraction","Image segmentation","Medical question summarization","Multi-choice question answering","Open question answering","Respiratory health prediction",
+                             "Treatment plan recommendations","Visual question answering","Clinical letter generation","Clinical named entity recognition","Dialogue summarization","Disease feature recognition","Handoff note generation","ICD code assignment",
+                             "Informed consent document generation","Multi-choice question answering","Open question answering","Postoperative complication extraction","Risk prediction","Surgical consent form simplification","Survival prediction","Video question answering",
+                             "Visual question answering","Voice conversations","Diagnosis-related group prediction","Discharge letter generation","Discharge summary generation","Discharge summary simplification","Disease feature recognition",
+                             "Disease phenotype recognition","Disease recurrence prediction","Open question answering","Social determinant of health extraction","Text deidentification")) +
   theme(legend.key.size = unit(0.6, 'cm'), #change legend key size
         legend.key.height = unit(0.6, 'cm'), #change legend key height
         legend.key.width = unit(0.6, 'cm'), #change legend key width
@@ -679,7 +679,7 @@ legend <- as_ggplot(leg)
 #ggarrange(p1,p2,p3,p4,p5,p6,p7,p8,nrow=2,ncol=4)
 #pl <- list(p1,p2,p3,p4,p7,p6,p5,p8)
 pl <- list(p1,p7,p2,p3,p4,p6,p5,p8)
-custom_labels <- letters[1:length(pl)]
+custom_labels <- list("(A)", "(B)", "(C)", "(D)", "(E)", "(F)", "(G)", "(H)")
 # Labelling plots
 #   customize_label <- function(label, size = 14, weight = "bold") {
 #     ggdraw() + draw_text(label, size = size, hjust = 0.5, vjust = 0.5, fontface = "bold")
@@ -691,6 +691,7 @@ plots <- cowplot::plot_grid(plotlist = pl, labels = custom_labels,
 plots2 <- cowplot::plot_grid(plots, legend, ncol = 2, rel_widths = c(1, .47))
 myh <- mycolumn+4
 myw <- mycolumn*5-1
-ggsave(plot=plots2, file="plots/figure4.pdf", width = myw, height = myh)
-ggsave(plot=plots2, file="plots/figure4.png", width = myw, height = myh, bg = "white")
+ggsave(plot=plots2, file="plots3/fig1_leg2.pdf", width = myw, height = myh)
+ggsave(plot=plots2, file="plots3/fig1_leg2.png", width = myw, height = myh, bg = "white")
+#ggsave(plot=plots2, file="plots3/fig1_leg2.png", width = 1200, height = 1200, units = "px", dpi = 300, bg = "white")
 
