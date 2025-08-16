@@ -7,7 +7,7 @@ Welcome to the [Clinical LLM Selection Tool](https://williamlhy.github.io/Clinic
  
 We present the **Clinical LLM Selector**, an interactive online guideline designed to assist healthcare practitioners in identifying the most suitable large language model (LLM) for their specific needs. The Selector provides **evidence-based guidance** by leveraging insights from **270 peer-reviewed studies** that apply or develop LLMs in healthcare.
 
-The manuscript for our paper, *Implementing Large Language Models in Health Care: Clinician-Focused Review With Interactive Guideline*, is available [here](https://www.jmir.org/2025/1/e71916/#ref34)).
+The manuscript for our paper, *Implementing Large Language Models in Health Care: Clinician-Focused Review With Interactive Guideline*, is available [here](https://www.jmir.org/2025/1/e71916).
 
 ### Structure of the Clinical LLM Selector
 - [Introduction](https://williamlhy.github.io/Clinical-LLM-select/intro.html)
